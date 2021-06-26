@@ -128,3 +128,30 @@ public enum GoogleBooks {
     return try decoder.decode(SearchResponse.self, from: data)
   }
 }
+
+public extension Book {
+  /// Construct a Book model from a Google Books search result.
+  init?(_ item: GoogleBooks.Item) {
+    guard let title = item.volumeInfo.title else {
+      return nil
+    }
+    self.title = title
+    self.authors = item.volumeInfo.authors ?? []
+    self.numberOfPages = item.volumeInfo.pageCount
+    self.publisher = item.volumeInfo.publisher
+    if let datePrefix = item.volumeInfo.publishedDate?.prefix(4) {
+      self.yearPublished = Int(datePrefix)
+    }
+    for identifier in item.volumeInfo.industryIdentifiers ?? [] {
+      switch identifier.type {
+      case .isbn10:
+        self.isbn = identifier.identifier
+      case .isbn13:
+        self.isbn13 = identifier.identifier
+      case .issn, .other:
+        // ignore
+        break
+      }
+    }
+  }
+}
