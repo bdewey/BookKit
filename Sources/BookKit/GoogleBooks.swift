@@ -17,8 +17,9 @@
 
 import Foundation
 
-/// For working with the Google Books API
-/// https://developers.google.com/books
+/// Contains utility functions for working with the Google Books API.
+///
+/// For more information, see https://developers.google.com/books.
 public enum GoogleBooks {
   /// A response for a Google Search request.
   public struct SearchResponse: Codable {

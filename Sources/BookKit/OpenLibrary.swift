@@ -19,6 +19,7 @@ import Combine
 import UIKit
 import UniformTypeIdentifiers
 
+/// Contains utility functions for using the OpenLibrary APIs.
 public enum OpenLibrary {
   // TODO: Write an async version of this.
   /// A Combine publisher that downloads a medium-sized cover image for a book from OpenLibrary.

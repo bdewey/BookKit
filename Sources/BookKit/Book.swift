@@ -17,7 +17,9 @@
 
 import Foundation
 
-/// Core model for a "book"
+/// Core model for a *book*.
+///
+/// The properties on `Book` are meant to be about *the book itself*, as opposed to *the relationship between the book and a person* (like when the book was added to a library, or how a reader rates the book).
 public struct Book: Hashable, Codable {
   public init(title: String, authors: [String], yearPublished: Int? = nil, originalYearPublished: Int? = nil, publisher: String? = nil, isbn: String? = nil, isbn13: String? = nil, numberOfPages: Int? = nil, tags: [String]? = nil) {
     self.title = title
