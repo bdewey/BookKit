@@ -55,10 +55,14 @@ public struct AugmentedBook: Codable, Hashable {
   /// When this date was added into a personal collection.
   public var dateAdded: Date?
 
+  /// Your reading history with this book.
+  public var readingHistory: ReadingHistory?
+
   private enum CodingKeys: CodingKey {
     case review
     case rating
     case dateAdded
+    case readingHistory
   }
 
   public init(from decoder: Decoder) throws {
@@ -67,6 +71,7 @@ public struct AugmentedBook: Codable, Hashable {
     self.review = try container.decodeIfPresent(String.self, forKey: .review)
     self.rating = try container.decodeIfPresent(Int.self, forKey: .rating)
     self.dateAdded = try container.decodeIfPresent(Date.self, forKey: .dateAdded)
+    self.readingHistory = try container.decodeIfPresent(ReadingHistory.self, forKey: .readingHistory)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -75,6 +80,7 @@ public struct AugmentedBook: Codable, Hashable {
     try container.encode(review, forKey: .review)
     try container.encode(rating, forKey: .rating)
     try container.encode(dateAdded, forKey: .dateAdded)
+    try container.encode(readingHistory, forKey: .readingHistory)
   }
 
   public subscript<T>(dynamicMember keyPath: WritableKeyPath<Book, T>) -> T {

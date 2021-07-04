@@ -18,6 +18,10 @@ BookKit contains helper routines for dealing with common book-related services. 
 
 ## Changelog
 
+### Version 0.2 - 2021-07-05
+
+Added `ReadingHistory`
+
 ### Version 0.1 - 2021-06-27
 
 Initial version.
