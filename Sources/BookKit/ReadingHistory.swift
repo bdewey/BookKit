@@ -77,6 +77,7 @@ public struct ReadingHistory: Codable, Hashable {
   ///
   /// - parameter finishDate: When you finished the book.
   public mutating func finishReading(finishDate: DateComponents) {
+    hasRead = true
     if entries != nil {
       entries!.finishReading(finishDate: finishDate)
     } else {
