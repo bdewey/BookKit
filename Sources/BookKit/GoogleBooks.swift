@@ -56,6 +56,8 @@ public enum GoogleBooks {
     public var industryIdentifiers: [IndustryIdentifier]?
     public var pageCount: Int?
     public var publisher: String?
+    public var mainCategory: String?
+    public var categories: [String]?
   }
 
   /// A book cover image.
@@ -153,5 +155,6 @@ public extension Book {
         break
       }
     }
+    self.tags = item.volumeInfo.categories
   }
 }

@@ -43,7 +43,7 @@ public struct AugmentedBook: Codable, Hashable {
     self.book = book
   }
 
-  /// The underlying review.
+  /// The underlying book.
   public var book: Book
 
   /// A written review of this book.

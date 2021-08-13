@@ -66,7 +66,7 @@ public extension Book {
       isbn: libraryThingBook.isbn?["0"],
       isbn13: libraryThingBook.isbn?["2"],
       numberOfPages: libraryThingBook.pages,
-      tags: nil
+      tags: libraryThingBook.genre
     )
   }
 }

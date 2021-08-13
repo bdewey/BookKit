@@ -18,6 +18,10 @@ BookKit contains helper routines for dealing with common book-related services. 
 
 ## Changelog
 
+### Version 0.3 - 2021-08-13
+
+* Persist Google "categories" & LibraryThing "genres" as tags on the Book.
+
 ### Version 0.2.1 - 2021-07-07
 
 Bugfix: Calling `ReadingHistory.finishReading()` now sets `hasRead` to `true`
