@@ -42,4 +42,22 @@ public enum OpenLibrary {
       }
       .eraseToAnyPublisher()
   }
+
+  @available(iOS 15.0, *)
+  public static func coverImage(forISBN isbn: String) async throws -> TypedData {
+    guard let url = URL(string: "https://covers.openlibrary.org/b/isbn/\(isbn)-M.jpg") else {
+      throw URLError(.badURL)
+    }
+    let (data, response) = try await URLSession.shared.data(from: url)
+    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+      throw URLError(.badServerResponse)
+    }
+    if let mimeType = httpResponse.mimeType, let type = UTType(mimeType: mimeType) {
+      return TypedData(data: data, type: type)
+    }
+    if let image = UIImage(data: data), let jpegData = image.jpegData(compressionQuality: 0.8) {
+      return TypedData(data: jpegData, type: .jpeg)
+    }
+    throw URLError(.cannotDecodeRawData)
+  }
 }

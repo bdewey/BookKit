@@ -18,6 +18,10 @@ BookKit contains helper routines for dealing with common book-related services. 
 
 ## Changelog
 
+### Version 0.4 - 2021-09-10
+
+* Add an async `OpenLibrary.coverImage` method
+
 ### Version 0.3 - 2021-08-13
 
 * Persist Google "categories" & LibraryThing "genres" as tags on the Book.
