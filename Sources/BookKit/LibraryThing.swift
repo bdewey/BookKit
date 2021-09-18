@@ -50,6 +50,7 @@ public struct LibraryThingBook: Codable {
   }
 }
 
+/// Represents an author in the JSON format exported from LibraryThing.
 public struct LibraryThingAuthor: Codable {
   public var lf: String?
   public var fl: String?

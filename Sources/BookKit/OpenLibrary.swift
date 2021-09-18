@@ -19,6 +19,7 @@ import Combine
 import UIKit
 import UniformTypeIdentifiers
 
+/// Contains utility functions for using the OpenLibrary APIs.
 public enum OpenLibrary {
   // TODO: Write an async version of this.
   /// A Combine publisher that downloads a medium-sized cover image for a book from OpenLibrary.
@@ -40,5 +41,23 @@ public enum OpenLibrary {
         throw URLError(.cannotDecodeRawData)
       }
       .eraseToAnyPublisher()
+  }
+
+  @available(iOS 15.0, *)
+  public static func coverImage(forISBN isbn: String) async throws -> TypedData {
+    guard let url = URL(string: "https://covers.openlibrary.org/b/isbn/\(isbn)-M.jpg") else {
+      throw URLError(.badURL)
+    }
+    let (data, response) = try await URLSession.shared.data(from: url)
+    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+      throw URLError(.badServerResponse)
+    }
+    if let mimeType = httpResponse.mimeType, let type = UTType(mimeType: mimeType) {
+      return TypedData(data: data, type: type)
+    }
+    if let image = UIImage(data: data), let jpegData = image.jpegData(compressionQuality: 0.8) {
+      return TypedData(data: jpegData, type: .jpeg)
+    }
+    throw URLError(.cannotDecodeRawData)
   }
 }
