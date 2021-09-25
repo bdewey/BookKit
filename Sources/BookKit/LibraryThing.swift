@@ -38,7 +38,7 @@ public struct LibraryThingBook: Codable {
     self.title = try container.decode(String.self, forKey: .title)
     // LibraryThing encodes "no authors" as "an array with an empty array", not "an empty array"
     self.authors = (try? container.decode([LibraryThingAuthor].self, forKey: .authors)) ?? []
-    self.date = Int(try container.decode(String.self, forKey: .date))
+    self.date = (try container.decodeIfPresent(String.self, forKey: .date)).flatMap(Int.init)
     self.review = try? container.decode(String.self, forKey: .review)
     self.rating = try? container.decode(Int.self, forKey: .rating)
     self.isbn = try? container.decode([String: String].self, forKey: .isbn)
