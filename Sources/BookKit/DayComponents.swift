@@ -18,7 +18,7 @@
 import Foundation
 
 /// Contains just the year/month/day for a date.
-public struct DayComponents: Equatable, Comparable, Hashable {
+public struct DayComponents: Equatable, Comparable, Hashable, Sendable {
   public let year: Int
   public let month: Int
   public let day: Int

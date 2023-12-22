@@ -24,7 +24,7 @@ import Foundation
 ///
 /// `AugmentedBook` dynamically forwards `Book` key paths to the underlying Book, so you can just reference `reviewedBook.title` instead of `reviewedBook.book.title`
 @dynamicMemberLookup
-public struct AugmentedBook: Codable, Hashable {
+public struct AugmentedBook: Codable, Hashable, Sendable {
   public init(title: String, authors: [String], review: String? = nil, rating: Int? = nil, dateAdded: Date? = nil) {
     self.book = Book(title: title, authors: authors)
     self.review = review

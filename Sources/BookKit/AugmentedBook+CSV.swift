@@ -20,7 +20,7 @@ import Foundation
 import Logging
 
 public extension AugmentedBook {
-  enum GoodreadsHeader: String, CaseIterable {
+  enum GoodreadsHeader: String, CaseIterable, Sendable {
     case title
     case author
     case isbn

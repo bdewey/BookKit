@@ -22,7 +22,7 @@ import Foundation
 import UniformTypeIdentifiers
 
 /// Represents a book in the JSON format exported from LibraryThing.
-public struct LibraryThingBook: Codable {
+public struct LibraryThingBook: Codable, Sendable {
   public var title: String
   public var authors: [LibraryThingAuthor]
   public var date: Int?
@@ -51,7 +51,7 @@ public struct LibraryThingBook: Codable {
 }
 
 /// Represents an author in the JSON format exported from LibraryThing.
-public struct LibraryThingAuthor: Codable {
+public struct LibraryThingAuthor: Codable, Sendable {
   public var lf: String?
   public var fl: String?
 }

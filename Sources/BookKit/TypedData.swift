@@ -19,7 +19,7 @@ import Foundation
 import UniformTypeIdentifiers
 
 /// Holds data and its associated type.
-public struct TypedData {
+public struct TypedData: Sendable {
   public init(data: Data, type: UTType) {
     self.data = data
     self.type = type

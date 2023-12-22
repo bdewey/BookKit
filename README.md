@@ -18,6 +18,10 @@ BookKit contains helper routines for dealing with common book-related services. 
 
 ## Changelog
 
+### Version 0.6 - 2023-12-22
+
+* Added `Sendable` annotations
+
 ### Version 0.5 - 2021-09-25
 
 * When parsing LibraryThing JSON, "date" is now truly optional.

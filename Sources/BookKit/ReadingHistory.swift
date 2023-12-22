@@ -27,7 +27,7 @@ import Foundation
 /// - "I'm reading this book now"
 /// - "I started reading this book last Friday"
 /// - "I read this book from June 28 through July 3, 2021"
-public struct ReadingHistory: Codable, Hashable {
+public struct ReadingHistory: Codable, Hashable, Sendable {
   public init(hasRead: Bool = false, multipleReadings: Bool = false, entries: [ReadingHistory.Entry]? = nil) {
     self.hasRead = hasRead
     self.multipleReadings = multipleReadings
@@ -91,7 +91,7 @@ public struct ReadingHistory: Codable, Hashable {
   public var entries: [Entry]?
 
   /// Represents a single reading "encounter" with a book.
-  public struct Entry: Codable, Hashable {
+  public struct Entry: Codable, Hashable, Sendable {
     public var start: DateComponents?
     public var finish: DateComponents?
 

@@ -22,19 +22,19 @@ import Foundation
 /// For more information, see https://developers.google.com/books.
 public enum GoogleBooks {
   /// A response for a Google Search request.
-  public struct SearchResponse: Codable {
+  public struct SearchResponse: Codable, Sendable {
     public var totalItems: Int
     public var items: [Item]
   }
 
   /// An individual item in a Google Books search.
-  public struct Item: Codable {
+  public struct Item: Codable, Sendable {
     public var id: String
     public var volumeInfo: VolumeInfo
   }
 
   /// Valid industry identifiers.
-  public enum IndustryIdentifierType: String, Codable {
+  public enum IndustryIdentifierType: String, Codable, Sendable {
     case isbn10 = "ISBN_10"
     case isbn13 = "ISBN_13"
     case issn = "ISSN"
@@ -42,13 +42,13 @@ public enum GoogleBooks {
   }
 
   /// An industry identifier for a book.
-  public struct IndustryIdentifier: Codable {
+  public struct IndustryIdentifier: Codable, Sendable {
     public var type: IndustryIdentifierType
     public var identifier: String
   }
 
   /// The book itself.
-  public struct VolumeInfo: Codable {
+  public struct VolumeInfo: Codable, Sendable {
     public var title: String?
     public var subtitle: String?
     public var authors: [String]?
@@ -62,12 +62,12 @@ public enum GoogleBooks {
   }
 
   /// A book cover image.
-  public struct ImageLink: Codable {
+  public struct ImageLink: Codable, Sendable {
     public var smallThumbnail: String?
     public var thumbnail: String?
   }
 
-  public enum GoogleBooksError: Error {
+  public enum GoogleBooksError: Error, Sendable {
     case invalidURL
     case unknown
   }
