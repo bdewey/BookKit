@@ -18,6 +18,10 @@ BookKit contains helper routines for dealing with common book-related services. 
 
 ## Changelog
 
+### Version 0.7 - 2026-07-01
+
+* Fixed macOS
+
 ### Version 0.6 - 2023-12-22
 
 * Added `Sendable` annotations

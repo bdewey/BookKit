@@ -16,7 +16,8 @@
 //  under the License.
 
 import Combine
-import UIKit
+import Foundation
+import ImageIO
 import UniformTypeIdentifiers
 
 /// Contains utility functions for using the OpenLibrary APIs.
@@ -35,15 +36,12 @@ public enum OpenLibrary {
         if let mimeType = httpResponse.mimeType, let type = UTType(mimeType: mimeType) {
           return TypedData(data: data, type: type)
         }
-        if let image = UIImage(data: data), let jpegData = image.jpegData(compressionQuality: 0.8) {
-          return TypedData(data: jpegData, type: .jpeg)
-        }
-        throw URLError(.cannotDecodeRawData)
+        return try validatedImageData(data)
       }
       .eraseToAnyPublisher()
   }
 
-  @available(iOS 15.0, *)
+  @available(iOS 15.0, macOS 12.0, *)
   public static func coverImage(forISBN isbn: String) async throws -> TypedData {
     guard let url = URL(string: "https://covers.openlibrary.org/b/isbn/\(isbn)-M.jpg") else {
       throw URLError(.badURL)
@@ -55,9 +53,17 @@ public enum OpenLibrary {
     if let mimeType = httpResponse.mimeType, let type = UTType(mimeType: mimeType) {
       return TypedData(data: data, type: type)
     }
-    if let image = UIImage(data: data), let jpegData = image.jpegData(compressionQuality: 0.8) {
-      return TypedData(data: jpegData, type: .jpeg)
+    return try validatedImageData(data)
+  }
+
+  private static func validatedImageData(_ data: Data) throws -> TypedData {
+    guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil),
+          CGImageSourceCreateImageAtIndex(imageSource, 0, nil) != nil,
+          let typeIdentifier = CGImageSourceGetType(imageSource) as String?,
+          let type = UTType(typeIdentifier),
+          type.conforms(to: .image) else {
+      throw URLError(.cannotDecodeRawData)
     }
-    throw URLError(.cannotDecodeRawData)
+    return TypedData(data: data, type: type)
   }
 }
